@@ -11,13 +11,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './views/home/home.component';
+import { UploadDialogComponent } from './views/upload-dialog/upload-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    UploadDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +30,8 @@ import { HomeComponent } from './views/home/home.component';
     MatInputModule,
     MatButtonModule,
     MatCardModule,
-    CommonModule
+    CommonModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
