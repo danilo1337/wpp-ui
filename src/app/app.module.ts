@@ -13,6 +13,12 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './views/home/home.component';
 import { UploadDialogComponent } from './views/upload-dialog/upload-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { MenuComponent } from './views/menu/menu.component';
+import { MatMenuModule} from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
+import { ProcessamentoComponent } from './views/processamento/processamento.component';
+
 
 
 @NgModule({
@@ -20,7 +26,9 @@ import {MatDialogModule} from '@angular/material/dialog';
     AppComponent,
     LoginComponent,
     HomeComponent,
-    UploadDialogComponent
+    UploadDialogComponent,
+    MenuComponent,
+    ProcessamentoComponent
   ],
   imports: [
     BrowserModule,
@@ -32,6 +40,9 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatCardModule,
     CommonModule,
     MatDialogModule,
+    MatMenuModule,
+    MatToolbarModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
