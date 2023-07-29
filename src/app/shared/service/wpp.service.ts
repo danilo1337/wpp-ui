@@ -1,16 +1,27 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import axios from 'axios';
 import { environment } from 'src/environments/environment';
-
+import { HttpRequest, HttpEvent } from '@angular/common/http';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WppService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  async uploadArquivo(file: File) {
-    return axios.post(`${environment.URL_WPP_API}/contatos/arquivo/upload`, { file, }, { headers: { 'Content-Type': `multipart/form-data`, }, });
+  uploadArquivo(file: File) : Observable<HttpEvent<any>>{
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const req = new HttpRequest('POST',`${environment.URL_WPP_API}/contatos/arquivo/upload`, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+
+    return this.http.request(req);
+    
   }
+
 }

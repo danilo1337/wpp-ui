@@ -19,7 +19,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import { ProcessamentoComponent } from './views/processamento/processamento.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -43,7 +43,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatMenuModule,
     MatToolbarModule,
     MatIconModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
