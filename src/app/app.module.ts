@@ -18,7 +18,7 @@ import { MatMenuModule} from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import { ProcessamentoComponent } from './views/processamento/processamento.component';
-
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -42,7 +42,8 @@ import { ProcessamentoComponent } from './views/processamento/processamento.comp
     MatDialogModule,
     MatMenuModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
