@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { WppService } from 'src/app/shared/service/wpp.service';
 
 @Component({
   selector: 'app-menu',
@@ -7,4 +9,12 @@ import { Component } from '@angular/core';
 })
 export class MenuComponent {
 
+  constructor(
+    private router: Router,
+    private wppService: WppService
+    ){}
+
+  logout(): void{
+    this.wppService.logout();
+  }
 }

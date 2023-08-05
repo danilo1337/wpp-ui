@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { WppService } from 'src/app/shared/service/wpp.service';
+
 
 @Component({
   selector: 'app-login',
@@ -12,8 +14,9 @@ export class LoginComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router
-    ) { }
+    private router: Router,
+    private wppService: WppService
+  ) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -24,9 +27,20 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      
-      this.router.navigate(['home'])
-      console.log(this.loginForm.value);
+
+      const { username, password } = this.loginForm.value;
+
+      this.wppService.login(username, password).subscribe(
+        (response) => {
+          const accessToken = response.access_token;
+          localStorage.setItem('access_token',accessToken)
+          this.router.navigate(['home']);
+        },
+        (error) => {
+          console.error('Erro de autenticação:', error);
+        }
+      );
     }
+
   }
 }
