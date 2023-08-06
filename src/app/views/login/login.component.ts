@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { WppService } from 'src/app/shared/service/wpp.service';
+import { MatSnackBar} from '@angular/material/snack-bar';
 
 
 @Component({
@@ -11,11 +12,14 @@ import { WppService } from 'src/app/shared/service/wpp.service';
 })
 export class LoginComponent {
   loginForm!: FormGroup;
+  message = '';
+  durationInSeconds = 5;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private wppService: WppService
+    private wppService: WppService,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -37,10 +41,15 @@ export class LoginComponent {
           this.router.navigate(['home']);
         },
         (error) => {
-          console.error('Erro de autenticação:', error);
+          this.showSnackBar('Usuário ou senha incorretos');
         }
       );
     }
 
   }
+
+  showSnackBar(message: string): void{
+    this.snackBar.open(message, 'fechar', {duration: this.durationInSeconds * 1000})
+  }
+
 }
