@@ -52,7 +52,7 @@ export class WppService {
   get obterTokenUsuario(): string | null{
     const token = localStorage.getItem('access_token');
     if (token) {
-      return JSON.parse(atob(token));
+      return token;
     }    
     return null;
   }

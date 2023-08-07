@@ -3,18 +3,22 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
+  HttpErrorResponse
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { WppService } from '../wpp.service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
 
-  constructor() { }
+  constructor(
+    private wppService: WppService
+  ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem('access_token');
+    const token = this.wppService.obterTokenUsuario
     const isApiUrl = request.url.startsWith(`${environment.LOCAL_URL}`);
 
     if (token && !isApiUrl) {
@@ -25,7 +29,16 @@ export class JwtInterceptor implements HttpInterceptor {
       });
     }
 
-    return next.handle(request);
+    return next.handle(request).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 401) {
+          console.log('Houve um erro de autenticação');
+          this.wppService.deslogar();
+        }
+        return throwError(error);
+      })
+    );
+
   }
 
 }
