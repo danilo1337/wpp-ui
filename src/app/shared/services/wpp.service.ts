@@ -41,9 +41,24 @@ export class WppService {
   }
 
   logout() {
-    localStorage.removeItem('access_token');
+    this.deslogar();
+  }
+
+  deslogar() {
     localStorage.clear();
     this.router.navigate(['/']);
+  }
+
+  get obterTokenUsuario(): string | null{
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      return JSON.parse(atob(token));
+    }    
+    return null;
+  }
+
+  get logado(): boolean {
+    return localStorage.getItem('access_token') ? true : false;
   }
 
 }
