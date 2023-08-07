@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { WppService } from 'src/app/shared/service/wpp.service';
+import { WppService } from 'src/app/shared/services/wpp.service';
 
 @Component({
   selector: 'app-menu',

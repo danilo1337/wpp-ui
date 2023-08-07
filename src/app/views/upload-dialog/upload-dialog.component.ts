@@ -1,7 +1,7 @@
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { WppService } from 'src/app/shared/service/wpp.service';
+import { WppService } from 'src/app/shared/services/wpp.service';
 import { MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({

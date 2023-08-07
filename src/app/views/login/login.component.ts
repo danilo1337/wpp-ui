@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { WppService } from 'src/app/shared/service/wpp.service';
+import { WppService } from 'src/app/shared/services/wpp.service';
 import { MatSnackBar} from '@angular/material/snack-bar';
 
 

@@ -20,7 +20,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { ProcessamentoComponent } from './views/processamento/processamento.component';
 import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
+import { JwtInterceptor } from './shared/services/interceptors/jwt.interceptor';
 
 @NgModule({
   declarations: [
