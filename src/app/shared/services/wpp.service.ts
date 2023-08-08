@@ -61,4 +61,21 @@ export class WppService {
     return localStorage.getItem('access_token') ? true : false;
   }
 
+
+  get ehUsuarioAdministrador(): boolean{
+    const token = this.obterTokenUsuario;
+    
+    if(!token){
+      return false;
+    }
+
+    const tokenSplit: any = token?.split('.');
+    
+    const payload = JSON.parse(atob(tokenSplit[1]));
+
+    let administrador = payload.authorities.some((e: any) => e === 'ROLE_ADMIN')
+    
+    return administrador;
+  }
+
 }

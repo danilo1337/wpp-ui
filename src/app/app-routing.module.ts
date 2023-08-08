@@ -5,6 +5,7 @@ import { HomeComponent } from './views/home/home.component';
 import { ProcessamentoComponent } from './views/processamento/processamento.component';
 import { UsuarioNaoAutenticadoGuard } from './shared/services/guards/usuario-nao-autenticado.guard';
 import { UsuarioAutenticadoGuard } from './shared/services/guards/usuario-autenticado.guard';
+import { PermissaoUsuario } from './shared/services/guards/permissao-usuario.guard';
 
 
 const routes: Routes = [
@@ -21,6 +22,7 @@ const routes: Routes = [
   {
     path:'processamento',
     component: ProcessamentoComponent,
+    canActivate: [PermissaoUsuario]
   }
 ];
 
