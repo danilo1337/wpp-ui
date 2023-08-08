@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { HttpRequest, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { Router } from '@angular/router';
+import { JWT } from '../models/jwt';
 
 
 @Injectable({
@@ -62,20 +63,25 @@ export class WppService {
   }
 
 
+   getJwt(token : string): JWT{
+
+    const tokenSplit: any = token?.split('.');
+    
+    let jwt: JWT = JSON.parse(atob(tokenSplit[1]));
+    
+    return jwt;
+  }
+
+
   get ehUsuarioAdministrador(): boolean{
     const token = this.obterTokenUsuario;
     
     if(!token){
       return false;
     }
-
-    const tokenSplit: any = token?.split('.');
     
-    const payload = JSON.parse(atob(tokenSplit[1]));
-
-    let administrador = payload.authorities.some((e: any) => e === 'ROLE_ADMIN')
-    
-    return administrador;
+    let jwt: JWT = this.getJwt(token);
+    return jwt.authorities.some(e => e === 'ROLE_ADMIN');
   }
 
 }
