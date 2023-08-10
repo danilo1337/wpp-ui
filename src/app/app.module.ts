@@ -21,6 +21,14 @@ import { ProcessamentoComponent } from './views/processamento/processamento.comp
 import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { JwtInterceptor } from './shared/services/interceptors/jwt.interceptor';
+import { GestaoUsuarioComponent } from './views/gestao-usuario/gestao-usuario.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSortModule } from '@angular/material/sort';
+import { MatSelectModule } from '@angular/material/select';
+
+
 
 @NgModule({
   declarations: [
@@ -29,7 +37,8 @@ import { JwtInterceptor } from './shared/services/interceptors/jwt.interceptor';
     HomeComponent,
     UploadDialogComponent,
     MenuComponent,
-    ProcessamentoComponent
+    ProcessamentoComponent,
+    GestaoUsuarioComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +55,15 @@ import { JwtInterceptor } from './shared/services/interceptors/jwt.interceptor';
     MatIconModule,
     HttpClientModule,
     MatSnackBarModule,
+    MatTableModule,
+
+    MatFormFieldModule, 
+    MatInputModule,
+    MatTableModule, 
+    MatSortModule, 
+    MatPaginatorModule,
+
+    MatSelectModule
   ],
   providers: [
     {

@@ -1,0 +1,21 @@
+table {
+    width: 100%;
+  }
+  
+  td, th {
+    width: 25%;
+  }
+
+  .filter-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .input-field {
+    flex: 1;
+    margin-right: 16px;
+  }
+  
+  .select-field {
+    width: 200px; /* Ajuste a largura conforme necessário */
+  }

@@ -5,7 +5,8 @@ import { HomeComponent } from './views/home/home.component';
 import { ProcessamentoComponent } from './views/processamento/processamento.component';
 import { UsuarioNaoAutenticadoGuard } from './shared/services/guards/usuario-nao-autenticado.guard';
 import { UsuarioAutenticadoGuard } from './shared/services/guards/usuario-autenticado.guard';
-import { PermissaoUsuario } from './shared/services/guards/permissao-usuario.guard';
+import { UsuarioAdministradorGuard } from './shared/services/guards/usuario-administrador.guard';
+import { GestaoUsuarioComponent } from './views/gestao-usuario/gestao-usuario.component';
 
 
 const routes: Routes = [
@@ -22,7 +23,12 @@ const routes: Routes = [
   {
     path:'processamento',
     component: ProcessamentoComponent,
-    canActivate: [PermissaoUsuario]
+    canActivate: [UsuarioAutenticadoGuard]
+  },
+  {
+    path:'gestao-usuario',
+    component: GestaoUsuarioComponent,
+    canActivate: [UsuarioAutenticadoGuard, UsuarioAdministradorGuard]
   }
 ];
 

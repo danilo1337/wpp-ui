@@ -5,6 +5,7 @@ import { HttpRequest, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { Router } from '@angular/router';
 import { JWT } from '../models/jwt';
+import { Usuario } from '../models/usuario';
 
 
 @Injectable({
@@ -15,8 +16,9 @@ export class WppService {
   constructor(
     private http: HttpClient,
     private router: Router
-  ) {}
+  ) { }
 
+  /*----------------------------------------------------WPP-API----------------------------------------------------*/
 
   login(username: string, password: string): Observable<any> {
     const headers = new HttpHeaders({
@@ -41,6 +43,21 @@ export class WppService {
 
   }
 
+  // consultarUsuarios():  Observable<HttpEvent<any>>{
+  //   const req = new HttpRequest('GET', `${environment.URL_WPP_API}/usuarios/`, {
+  //     reportProgress: true,
+  //     responseType: 'json'
+  //   });
+
+  //   return this.http.request(req);
+  // }
+
+  consultarUsuarios():  Observable<Usuario[]>{
+    return this.http.get<Usuario[]>(`${environment.URL_WPP_API}/usuarios/`);
+  }
+
+  /*----------------------------------------------------TOKEN----------------------------------------------------*/
+
   logout() {
     this.deslogar();
   }
@@ -50,11 +67,11 @@ export class WppService {
     this.router.navigate(['/']);
   }
 
-  get obterTokenUsuario(): string | null{
+  get obterTokenUsuario(): string | null {
     const token = localStorage.getItem('access_token');
     if (token) {
       return token;
-    }    
+    }
     return null;
   }
 
@@ -63,25 +80,27 @@ export class WppService {
   }
 
 
-   getJwt(token : string): JWT{
+  getJwt(token: string): JWT {
 
     const tokenSplit: any = token?.split('.');
-    
+
     let jwt: JWT = JSON.parse(atob(tokenSplit[1]));
-    
+
     return jwt;
   }
 
 
-  get ehUsuarioAdministrador(): boolean{
+  get ehUsuarioAdministrador(): boolean {
     const token = this.obterTokenUsuario;
-    
-    if(!token){
+
+    if (!token) {
       return false;
     }
-    
+
     let jwt: JWT = this.getJwt(token);
     return jwt.authorities.some(e => e === 'ROLE_ADMIN');
   }
+
+  /*-------------------------------------------------------------------------------------------------------------*/
 
 }

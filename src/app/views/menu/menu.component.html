@@ -13,6 +13,10 @@
           <mat-icon>autorenew</mat-icon>
           <span>Processamento</span>
         </button>
+        <button mat-menu-item routerLink="/gestao-usuario" *ngIf="ehAdministrador">
+          <mat-icon>person</mat-icon>
+          <span>Gestão de usuários</span>
+        </button>
         <button mat-menu-item (click)="logout()">
           <mat-icon>exit_to_app</mat-icon>
           <span>Sair</span>
