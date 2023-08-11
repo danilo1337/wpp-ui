@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { Router } from '@angular/router';
 import { JWT } from '../models/jwt';
 import { Usuario } from '../models/usuario';
+import { Pagination } from '../models/pagination';
 
 
 @Injectable({
@@ -42,18 +43,9 @@ export class WppService {
     return this.http.request(req);
 
   }
-
-  // consultarUsuarios():  Observable<HttpEvent<any>>{
-  //   const req = new HttpRequest('GET', `${environment.URL_WPP_API}/usuarios/`, {
-  //     reportProgress: true,
-  //     responseType: 'json'
-  //   });
-
-  //   return this.http.request(req);
-  // }
-
-  consultarUsuarios():  Observable<Usuario[]>{
-    return this.http.get<Usuario[]>(`${environment.URL_WPP_API}/usuarios/`);
+  
+  consultarUsuarios():  Observable< Pagination<Usuario> >{
+    return this.http.get< Pagination<Usuario> >(`${environment.URL_WPP_API}/usuarios/`);
   }
 
   /*----------------------------------------------------TOKEN----------------------------------------------------*/

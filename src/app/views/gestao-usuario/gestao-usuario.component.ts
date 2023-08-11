@@ -50,12 +50,11 @@ export class GestaoUsuarioComponent implements AfterViewInit {
     }
   }
 
-
   consultar(event: any): void {
     this.wppService.consultarUsuarios().subscribe(
-      usuarios => {
-        this.usuarios = usuarios;
-        this.dataSource.data = usuarios; 
+        pagination => {
+        this.usuarios = pagination.content;
+        this.dataSource.data = pagination.content; 
       },
       error =>  this.showSnackBar('Erro ao consultar usuários')
     );
