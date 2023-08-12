@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, } from '@angular/material/table';
@@ -21,6 +21,10 @@ export class GestaoUsuarioComponent implements AfterViewInit {
 
   usuarios: Usuario[] = [];
 
+  pageSizeOptions = [5, 10, 25, 100];
+
+  totalElements: number = 0;
+
   ativos = [
     { value: '', viewValue: 'Todos' },
     { value: 'S', viewValue: 'Ativo' },
@@ -29,6 +33,7 @@ export class GestaoUsuarioComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
   constructor(
     private wppService: WppService,
     private snackBar: MatSnackBar
@@ -44,17 +49,18 @@ export class GestaoUsuarioComponent implements AfterViewInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
 
-  consultar(event: any): void {
-    this.wppService.consultarUsuarios().subscribe(
-        pagination => {
-        this.usuarios = pagination.content;
-        this.dataSource.data = pagination.content; 
+  consultar(_event: any): void {    
+
+    this.wppService.consultarUsuarios(_event.pageIndex??0, _event.pageSize??5)
+        .subscribe(pagination => {
+          this.usuarios = pagination.content;
+          this.dataSource = new MatTableDataSource(this.usuarios);
+          this.totalElements = pagination.totalElements;
       },
       error =>  this.showSnackBar('Erro ao consultar usuários')
     );
@@ -65,3 +71,4 @@ export class GestaoUsuarioComponent implements AfterViewInit {
   }
 
 }
+

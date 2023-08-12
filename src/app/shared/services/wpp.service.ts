@@ -43,9 +43,22 @@ export class WppService {
     return this.http.request(req);
 
   }
-  
-  consultarUsuarios():  Observable< Pagination<Usuario> >{
-    return this.http.get< Pagination<Usuario> >(`${environment.URL_WPP_API}/usuarios/`);
+
+  consultarUsuarios(page: number, size: number):  Observable< Pagination<Usuario> >{
+
+    const parameters: string[] = [];
+
+    if (page !== null) {
+      parameters.push(`page=${page}`);
+    }
+
+    if (size !== null) {
+      parameters.push(`size=${size}`);
+    }
+
+    const param = parameters.length > 0 ? '?' + parameters.join('&') : ''
+
+    return this.http.get< Pagination<Usuario> >(`${environment.URL_WPP_API}/usuarios${param}`);
   }
 
   /*----------------------------------------------------TOKEN----------------------------------------------------*/
