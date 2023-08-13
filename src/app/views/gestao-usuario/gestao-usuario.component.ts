@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
@@ -25,10 +25,12 @@ export class GestaoUsuarioComponent implements AfterViewInit {
 
   totalElements: number = 0;
 
+  selectedValue!: boolean;
+
   ativos = [
-    { value: '', viewValue: 'Todos' },
-    { value: 'S', viewValue: 'Ativo' },
-    { value: 'N', viewValue: 'Inativo' }
+    { value: undefined, viewValue: 'Todos' },
+    { value: true, viewValue: 'Ativo' },
+    { value: false, viewValue: 'Inativo' }
   ];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -55,8 +57,7 @@ export class GestaoUsuarioComponent implements AfterViewInit {
   }
 
   consultar(_event: any): void {    
-
-    this.wppService.consultarUsuarios(_event.pageIndex??0, _event.pageSize??5)
+    this.wppService.consultarUsuarios(_event.pageIndex??0, _event.pageSize??5, this.selectedValue)
         .subscribe(pagination => {
           this.usuarios = pagination.content;
           this.dataSource = new MatTableDataSource(this.usuarios);
@@ -68,6 +69,10 @@ export class GestaoUsuarioComponent implements AfterViewInit {
   
   showSnackBar(message: string): void{
     this.snackBar.open(message, 'fechar', {duration: this.durationInSeconds * 1000})
+  }
+
+  onSelectStatus(event: any): void{
+    this.selectedValue = event.value
   }
 
 }

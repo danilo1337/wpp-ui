@@ -44,7 +44,7 @@ export class WppService {
 
   }
 
-  consultarUsuarios(page: number, size: number):  Observable< Pagination<Usuario> >{
+  consultarUsuarios(page: number, size: number, selectedValue: boolean):  Observable< Pagination<Usuario> >{
 
     const parameters: string[] = [];
 
@@ -54,6 +54,10 @@ export class WppService {
 
     if (size !== null) {
       parameters.push(`size=${size}`);
+    }
+
+    if(selectedValue !== undefined){
+      parameters.push(`ativo=${selectedValue}`)
     }
 
     const param = parameters.length > 0 ? '?' + parameters.join('&') : ''
