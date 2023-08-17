@@ -44,7 +44,7 @@ export class WppService {
 
   }
 
-  consultarUsuarios(page: number, size: number, selectedValue: boolean):  Observable< Pagination<Usuario> >{
+  consultarUsuarios(page: number, size: number, selectedValue: boolean, filterNome: string):  Observable< Pagination<Usuario> >{
 
     const parameters: string[] = [];
 
@@ -58,6 +58,10 @@ export class WppService {
 
     if(selectedValue !== undefined){
       parameters.push(`ativo=${selectedValue}`)
+    }
+
+    if(filterNome && filterNome.length > 0){
+      parameters.push(`nome=${filterNome}`)
     }
 
     const param = parameters.length > 0 ? '?' + parameters.join('&') : ''

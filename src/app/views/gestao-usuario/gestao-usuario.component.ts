@@ -27,6 +27,8 @@ export class GestaoUsuarioComponent implements AfterViewInit {
 
   selectedValue!: boolean;
 
+  filterNome!: string;
+
   ativos = [
     { value: undefined, viewValue: 'Todos' },
     { value: true, viewValue: 'Ativo' },
@@ -50,6 +52,7 @@ export class GestaoUsuarioComponent implements AfterViewInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
+    this.filterNome = filterValue;
     this.dataSource.filter = filterValue.trim().toLowerCase();
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
@@ -57,7 +60,7 @@ export class GestaoUsuarioComponent implements AfterViewInit {
   }
 
   consultar(_event: any): void {    
-    this.wppService.consultarUsuarios(_event.pageIndex??0, _event.pageSize??5, this.selectedValue)
+    this.wppService.consultarUsuarios(_event.pageIndex??0, _event.pageSize??5, this.selectedValue, this.filterNome)
         .subscribe(pagination => {
           this.usuarios = pagination.content;
           this.dataSource = new MatTableDataSource(this.usuarios);
